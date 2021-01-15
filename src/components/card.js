@@ -1,11 +1,5 @@
 import axios from 'axios';
-const topics = [
-  "javascript",
-  "bootstrap",
-  "technology",
-  "jquery",
-  "node"
-];
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -62,12 +56,15 @@ const cardAppender = (selector) => {
   //
   const data = axios.get(`https://lambda-times-api.herokuapp.com/articles`);
   data.then(res => {
+    console.log(res);
+    const topics = (Object.keys(res.data.articles));
     topics.forEach(topic => {
       res.data.articles[topic].forEach( data => {
         document.querySelector(selector).appendChild(Card(data));
     }) 
   })})
   .catch(err => console.log(err))
+
 }
 
 export { Card, cardAppender }
